@@ -2,6 +2,8 @@
 
 PokeAPI を使用した、シンプルなポケモンおみくじアプリです。
 
+デプロイ URL: https://masvc.github.io/test_PokeAPI/
+
 ## 機能
 
 1. ポケモンおみくじ
