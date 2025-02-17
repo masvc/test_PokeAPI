@@ -1,0 +1,342 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --primary-color: #e3350d;
+  --secondary-color: #ffcb05;
+  --background-color: #f5f5f5;
+  --card-background: #ffffff;
+  --text-color: #333333;
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --pokeball-size: 200px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+main {
+  flex: 1;
+  padding: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#resultSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+/* モンスターボールのスタイル */
+#monsterBall {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  perspective: 1000px;
+}
+
+#monsterBall.hidden {
+  display: none;
+}
+
+.ball {
+  width: var(--pokeball-size);
+  height: var(--pokeball-size);
+  position: relative;
+  transform-style: preserve-3d;
+  animation: float 3s ease-in-out infinite;
+  cursor: pointer;
+}
+
+.ball-top {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background: var(--primary-color);
+  border-radius: var(--pokeball-size) var(--pokeball-size) 0 0;
+  top: 0;
+}
+
+.ball-bottom {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background: white;
+  border-radius: 0 0 var(--pokeball-size) var(--pokeball-size);
+  bottom: 0;
+}
+
+.ball-center {
+  position: absolute;
+  width: 100%;
+  height: calc(var(--pokeball-size) * 0.15);
+  background: #333;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.ball-button {
+  position: absolute;
+  width: calc(var(--pokeball-size) * 0.2);
+  height: calc(var(--pokeball-size) * 0.2);
+  background: #fff;
+  border: calc(var(--pokeball-size) * 0.03) solid #333;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ball-button:hover {
+  background: #f0f0f0;
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 203, 5, 0.3);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(3deg);
+  }
+}
+
+.ball:hover {
+  animation-play-state: paused;
+}
+
+/* ポケモンカードのスタイル */
+#pokemonCard {
+  background-color: var(--card-background);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+#pokemonCard.hidden {
+  display: none;
+}
+
+.card-container {
+  padding: 1.5rem;
+}
+
+#pokemonImage {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 1rem;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+#pokemonImage:hover {
+  transform: scale(1.05);
+}
+
+#pokemonName {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+#pokemonInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#pokemonInfo p {
+  background-color: var(--background-color);
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+#pokemonInfo p:hover {
+  background-color: #eee;
+}
+
+footer {
+  padding: 1rem 1rem calc(1rem + var(--safe-area-inset-bottom));
+  background-color: var(--card-background);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  bottom: 0;
+}
+
+.action-button {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.action-button:active {
+  transform: scale(0.98);
+  background-color: #ffd740;
+}
+
+.button-icon {
+  font-size: 1.3rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spinOut {
+  from {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(720deg) scale(0);
+    opacity: 0;
+  }
+}
+
+#pokemonCard:not(.hidden) {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@media (display-mode: standalone) {
+  header {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+  }
+
+  footer {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --pokeball-size: 160px;
+  }
+
+  #pokemonImage {
+    width: 150px;
+    height: 150px;
+  }
+
+  #pokemonName {
+    font-size: 1.5rem;
+  }
+
+  #pokemonInfo p {
+    font-size: 0.9rem;
+  }
+}
+
+.fortune-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #fff6e6, #ffe4e1);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.fortune-title {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.fortune-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background: var(--secondary-color);
+}
+
+.fortune-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #555;
+  text-align: justify;
+}
+
+@media (max-width: 380px) {
+  .fortune-title {
+    font-size: 1.2rem;
+  }
+
+  .fortune-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+}
